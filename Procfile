@@ -1,0 +1,1 @@
+web: gunicorn esse-django-project.wsgi --log-file -
