@@ -1,1 +1,1 @@
-web: gunicorn esse-django-project.wsgi --log-file -
+web: gunicorn esse_backend.wsgi:application --bind 0.0.0.0:$PORT
