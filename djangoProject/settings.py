@@ -97,7 +97,8 @@ DATABASES = {
         'HOST': 'postgres-crwf.railway.internal',
         'PORT': '5432',
         'OPTIONS': {
-            'client_encoding': 'UTF8',  # Явно указываем кодировку
+            'client_encoding': 'UTF8',
+            'options': '-c client_encoding=utf8'
         },
     }
 }
