@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+from decouple import config
 import dj_database_url
 from pathlib import Path
 
@@ -22,18 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-for-development-only')
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 # Разрешенные хосты
-ALLOWED_HOSTS = [
-    'web-production-b63dc.up.railway.app',
-    'ci96892.tw1.ru',
-    'localhost',
-    '127.0.0.1'
-]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -84,24 +80,14 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
-print("DATABASE_URL:", repr(DATABASE_URL))
+DATABASE_URL = config('DATABASE_URL')
 
 # Database configuration
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', '').strip(),
-        conn_max_age=600,
-        ssl_require=False  # отключаем тут
+    "default": dj_database_url.config(
+        default=config("DATABASE_URL")
     )
 }
-
-# Добавим sslmode напрямую
-if DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql':
-    DATABASES['default']['OPTIONS'] = {
-        'sslmode': 'require',
-    }
-
 
 
 # Password validation
