@@ -1,0 +1,5 @@
+[build]
+builder = "NIXPACKS"
+
+[build.config]
+nixPkgs = ['libpq', 'postgresql']
