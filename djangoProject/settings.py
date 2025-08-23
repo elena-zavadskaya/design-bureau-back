@@ -88,19 +88,13 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 
 # Database configuration
 # В settings.py замените конфигурацию DATABASES на:
+# Правильная конфигурация для использования DATABASE_URL
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'jxQwrZUNpzYrMdvPUSARizlXdTTMdERe',
-        'HOST': 'postgres-crwf.railway.internal',
-        'PORT': '5432',
-        'OPTIONS': {
-            'client_encoding': 'UTF8',
-            'options': '-c client_encoding=utf8'
-        },
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=DEBUG
+    )
 }
 
 
