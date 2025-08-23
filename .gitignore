@@ -24,6 +24,3 @@ venv.bak/
 # OS
 .DS_Store
 Thumbs.db
-
-# Static files
-/staticfiles/
