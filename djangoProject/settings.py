@@ -87,13 +87,19 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 # Database configuration
+# В settings.py замените конфигурацию DATABASES на:
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=not DEBUG,
-        engine='django.db.backends.postgresql'  # Явно укажите движок
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'jxQwrZUNpzYrMdvPUSARizlXdTTMdERe',
+        'HOST': 'postgres-crwf.railway.internal',
+        'PORT': '5432',
+        'OPTIONS': {
+            'client_encoding': 'UTF8',  # Явно указываем кодировку
+        },
+    }
 }
 
 
