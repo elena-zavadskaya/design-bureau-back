@@ -84,18 +84,24 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
+print("DATABASE_URL:", repr(DATABASE_URL))
 
 # Database configuration
-# В settings.py замените конфигурацию DATABASES на:
-# Правильная конфигурация для использования DATABASE_URL
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+        default=os.environ.get('DATABASE_URL', '').strip(),
         conn_max_age=600,
-        ssl_require=True
+        ssl_require=False  # отключаем тут
     )
 }
+
+# Добавим sslmode напрямую
+if DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql':
+    DATABASES['default']['OPTIONS'] = {
+        'sslmode': 'require',
+    }
+
 
 
 # Password validation
